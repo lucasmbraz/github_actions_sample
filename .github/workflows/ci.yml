@@ -31,8 +31,8 @@ jobs:
           name: test-results
           path: test-results.json
           reporter: flutter-json
-      - uses: zgosalvez/github-actions-report-lcov@v1
+      - uses: zgosalvez/github-actions-report-lcov@v1.4.0
         with:
-          coverage-files: coverage/lcov.*.info
+          coverage-files: "coverage/lcov.info"
           artifact-name: code-coverage-report
           github-token: ${{ secrets.GITHUB_TOKEN }}
