@@ -10,19 +10,29 @@ on:
 
 jobs:
   flutter_test:
-    name: Run ${{ matrix.category }} testing
+    name: Run Flutter analyze and test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        category: [ static, unit ]
-      fail-fast: false
     steps:
       - name: Clone the repository
         uses: actions/checkout@v2
-      - name: Run Flutter Commands
-        uses: subosito/flutter-action@v2
+      - name: Run flutter commands
+        uses: subosito/flutter-action@v1
         with:
-          flutter-version: 2.5.0
-          channel: stable
+          channel: "stable"
           cache: true
-      - run: flutter --version
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter format --dry-run --set-exit-if-changed lib/
+      - run: flutter format --dry-run --set-exit-if-changed test/
+      - run: flutter test --coverage
+      - run: flutter test --machine > test-results.json
+      - uses: dorny/test-reporter@v1.4.2
+        with:
+          name: test-results
+          path: test-results.json
+          reporter: flutter-json
+      - uses: zgosalvez/github-actions-report-lcov@v1
+        with:
+          coverage-files: coverage/lcov.*.info
+          artifact-name: code-coverage-report
+          github-token: ${{ secrets.GITHUB_TOKEN }}
