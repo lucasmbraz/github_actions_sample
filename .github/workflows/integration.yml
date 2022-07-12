@@ -10,6 +10,7 @@ on:
 jobs:
   integration_tests:
     name: Simulate running integration tests
+    if: contains( github.event.pull_request.labels.*.name, 'merge')
     runs-on: ubuntu-latest
     steps:
       - name: Fail randomly
