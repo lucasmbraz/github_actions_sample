@@ -32,12 +32,10 @@ jobs:
 #          pull_request: ${{ env.PR_NUMBER }}
 
       - name: Merge
-        uses: kalgurn/merge-pr-action@1.0.0
+        uses: Matticusau/pr-helper@v1.2.4
         with:
-          token: ${{ github.token }}
-          owner: ${{ github.owner }}
-          repo: ${{ github.repository }}
-          pull_number: ${{ env.PR_NUMBER }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          enable-prmerge-automation: true
 
       - name: Comment merge successful
         if: ${{ !failure() }}
