@@ -14,7 +14,7 @@ jobs:
         run: echo ${{ github.event.comment.body }}
 
       - name: Auto merge
-        if: ${{ github.event.issue.pull_request && github.event.comment.body == ':ship'}}
+        if: ${{ github.event.issue.pull_request && github.event.comment.body == '🚢'}}
         uses: squalrus/merge-bot@v0.1.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
