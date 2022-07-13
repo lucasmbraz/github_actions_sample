@@ -13,6 +13,14 @@ jobs:
     env:
       PR_NUMBER: $(basename ${{ github.event.comment.issue_url }})
     steps:
+      - name: Comment merge is starting
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ env.PR_NUMBER.number }}
+          id: merge-progress
+          message: 'Merge in progress :shipit:'
+
+
       - name: Print success message
         run: echo Running
 
@@ -28,3 +36,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           method: squash
           pull_request: ${{ env.PR_NUMBER }}
+
+      - name: Comment merge successful
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ env.PR_NUMBER.number }}
+          id: merge-progress
+          message: 'Merge worked! :ship'
