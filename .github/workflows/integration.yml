@@ -10,13 +10,18 @@ jobs:
     name: Merge PR
     if: ${{ contains(github.event.comment.body, '🚢') }}
     runs-on: ubuntu-latest
+    env:
+      PR_NUMBER: $(basename ${{ github.event.comment.issue_url }})
     steps:
       - name: Print success message
         run: echo Running
+
+      - name: Print pr number
+        run: echo $PR_NUMBER
 
       - name: Merge
         uses: nbrugger-tgm/merge-pr-action@v0.2.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           method: squash
-          pull_request: $(basename ${{ github.event.comment.issue_url }})
+          pull_request: ${{ PR_NUMBER }}
