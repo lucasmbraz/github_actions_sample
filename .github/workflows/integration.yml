@@ -14,10 +14,10 @@ jobs:
         run: echo ${{ github.event.comment.body }}
 
       - name: Matches?
-        run: echo ${{ contains(github.event.comment.body, 🚢) }}
+        run: echo ${{ contains(github.event.comment.body, '🚢') }}
 
       - name: Auto merge
-        if: ${{ contains(github.event.comment.body, 🚢) }}
+        if: ${{ contains(github.event.comment.body, '🚢') }}
         uses: squalrus/merge-bot@v0.1.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
