@@ -18,7 +18,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
-          number: ${{ env.PR_NUMBER.number }}
+          number: ${{ env.PR_NUMBER }}
           id: merge-progress
           message: 'Merge in progress :shipit:'
 
