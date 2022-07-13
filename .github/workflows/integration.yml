@@ -1,0 +1,19 @@
+name: Integration tests
+
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  integration_tests:
+    name: Simulate running integration tests
+    if: ${{ github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print success message
+        if: ${{ github.event.comment.body == '/merge'}}
+        run: echo "Yeah!"
+
+      - name: Always print
+        run: echo "This is always running"
