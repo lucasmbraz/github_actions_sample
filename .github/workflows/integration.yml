@@ -13,44 +13,36 @@ jobs:
     env:
       PR_NUMBER: $(basename ${{ github.event.comment.issue_url }})
     steps:
-      - name: Print repo
-        run: echo ${{ github.action_repository }}
+      - name: Comment merge is starting
+        uses: hasura/comment-progress@v2.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ env.PR_NUMBER.number }}
+          id: merge-progress
+          message: 'Merge in progress :shipit:'
 
-      - name: Print repo
-        run: echo ${{ github.repository }}
+
+      - name: Print success message
+        run: echo Running
+
+      - name: Set env
+        run: echo "PR_NUMBER=$(basename ${{ github.event.comment.issue_url }})" >> $GITHUB_ENV
 
       - name: Print pr number
-        run: echo ${{ env.PR_NUMBER }}
+        run: echo $PR_NUMBER
 
-#      - name: Comment merge is starting
-#        uses: hasura/comment-progress@v2.1.0
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#          number: ${{ env.PR_NUMBER.number }}
-#          id: merge-progress
-#          message: 'Merge in progress :shipit:'
-#
-#
-#      - name: Print success message
-#        run: echo Running
-#
-#      - name: Set env
-#        run: echo "PR_NUMBER=$(basename ${{ github.event.comment.issue_url }})" >> $GITHUB_ENV
-#
-#      - name: Print pr number
-#        run: echo $PR_NUMBER
-#
-#      - name: Merge
-#        uses: nbrugger-tgm/merge-pr-action@v0.2.2
-#        with:
-#          token: ${{ secrets.GITHUB_TOKEN }}
-#          method: squash
-#          pull_request: ${{ env.PR_NUMBER }}
-#
-#      - name: Comment merge successful
-#        uses: hasura/comment-progress@v2.1.0
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#          number: ${{ env.PR_NUMBER.number }}
-#          id: merge-progress
-#          message: 'Merge worked! :ship'
+      - name: Merge
+        uses: nbrugger-tgm/merge-pr-action@v0.2.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          method: squash
+          pull_request: ${{ env.PR_NUMBER }}
+
+      - name: Comment merge successful
+        uses: hasura/comment-progress@v2.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ env.PR_NUMBER.number }}
+          id: merge-progress
+          message: 'Merge worked! :ship'
