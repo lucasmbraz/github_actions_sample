@@ -27,4 +27,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           method: squash
-          pull_request: ${{ PR_NUMBER }}
+          pull_request: ${{ env.PR_NUMBER }}
