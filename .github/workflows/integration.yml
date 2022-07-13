@@ -32,9 +32,12 @@ jobs:
 #          pull_request: ${{ env.PR_NUMBER }}
 
       - name: Merge
-        uses: maxkomarychev/merge-pal-action@v0.5.1
+        uses: KeisukeYamashita/auto-pull-request-merge@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          intervalSeconds: 10
+          timeoutSeconds: 30
+          pullRequestNumber: ${{ env.PR_NUMBER }}
+          strategy: squash
 
       - name: Comment merge successful
         if: ${{ !failure() }}
