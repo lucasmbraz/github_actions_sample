@@ -34,6 +34,7 @@ jobs:
         uses: hasura/comment-progress@v2.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          number: ${{ env.PR_NUMBER.number }}
+          repository: ${{ github.repository }}
+          number: ${{ env.PR_NUMBER }}
           id: merge-progress
           message: 'Merge worked! :ship'
