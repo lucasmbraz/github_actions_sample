@@ -14,14 +14,9 @@ jobs:
       - name: Print success message
         run: echo Running
 
-      - name: Print gh event
-        run: echo ${{ github.event.comment.issue_url }}
-
-      - name: Print gh event
-        run: echo $(basename ${{ github.event.comment.issue_url }})
-
       - name: Merge
         uses: nbrugger-tgm/merge-pr-action@v0.2.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           method: squash
+          pull_request: $(basename ${{ github.event.comment.issue_url }})
