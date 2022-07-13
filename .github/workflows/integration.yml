@@ -16,6 +16,9 @@ jobs:
       - name: Print success message
         run: echo Running
 
+      - name: Set env
+        run: echo "PR_NUMBER=$(basename ${github.event.comment.issue_url})" >> $GITHUB_ENV
+
       - name: Print pr number
         run: echo $PR_NUMBER
 
