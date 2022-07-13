@@ -15,10 +15,7 @@ jobs:
         run: echo Running
 
       - name: Print gh event
-        run: echo ${{ !github.event }}
-
-      - name: Print gh event
-        run: echo ${{ github.event.pull_request }}
+        run: echo ${{ github.event.comment.issue_url }}
 
       - name: Merge
         uses: nbrugger-tgm/merge-pr-action@v0.2.2
