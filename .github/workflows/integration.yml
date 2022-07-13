@@ -31,10 +31,24 @@ jobs:
           pull_request: ${{ env.PR_NUMBER }}
 
       - name: Comment merge successful
+        if: ${{ !failure() }}
         uses: hasura/comment-progress@v2.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           number: ${{ env.PR_NUMBER }}
           id: merge-progress
-          message: 'Merge worked! :ship'
+          message: 'Merge worked! :rocket:'
+          recreate: true
+
+      - name: Comment merge failure
+        if: ${{ failure() }}
+        uses: hasura/comment-progress@v2.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          number: ${{ env.PR_NUMBER }}
+          id: merge-progress
+          message: 'Merge failed :boom:'
+          recreate: true
+
