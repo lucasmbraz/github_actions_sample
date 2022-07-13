@@ -30,7 +30,7 @@ jobs:
 #          token: ${{ secrets.GITHUB_TOKEN }}
 #          method: squash
 #          pull_request: ${{ env.PR_NUMBER }}
-      -
+
       - name: Merge
         uses: maxkomarychev/merge-pal-action@v0.5.1
         with:
