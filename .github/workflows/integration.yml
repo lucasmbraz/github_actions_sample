@@ -34,10 +34,8 @@ jobs:
       - name: Merge
         uses: KeisukeYamashita/auto-pull-request-merge@v1
         with:
-          intervalSeconds: 10
           timeoutSeconds: 30
           pullRequestNumber: ${{ env.PR_NUMBER }}
-          strategy: squash
 
       - name: Comment merge successful
         if: ${{ !failure() }}
