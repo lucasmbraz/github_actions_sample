@@ -22,6 +22,7 @@ jobs:
           number: ${{ env.PR_NUMBER }}
           id: merge-progress
           message: 'Merge in progress :shipit:'
+          recreate: true
 
       - name: Merge
         uses: nbrugger-tgm/merge-pr-action@v0.2.2
