@@ -14,6 +14,9 @@ jobs:
       - name: Print success message
         run: echo Running
 
+      - name: Print gh event
+        run: echo ${{ github.event }}
+
       - name: Merge
         uses: nbrugger-tgm/merge-pr-action@v0.2.2
         with:
