@@ -17,6 +17,9 @@ jobs:
       - name: Print gh event
         run: echo ${{ github.event.comment.issue_url }}
 
+      - name: Print gh event
+        run: echo $(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+
       - name: Merge
         uses: nbrugger-tgm/merge-pr-action@v0.2.2
         with:
