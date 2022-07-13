@@ -32,16 +32,12 @@ jobs:
 #          pull_request: ${{ env.PR_NUMBER }}
 
       - name: Merge
-        uses: justinyoo/github-pr-merge-action@v1
+        uses: kalgurn/merge-pr-action@1.0.0
         with:
-          authToken: ${{ secrets.GITHUB_TOKEN }}
-          owner: ${{ github.repository_owner }}
-          repository: ${{ github.repository }}
-          issueId: ${{ env.PR_NUMBER }}
-          mergeMethod: Squash
-          commitTitle: ''
-          commitDescription: ''
-          deleteBranch: 'true'
+          token: ${{ github.token }}
+          owner: ${{ github.owner }}
+          repo: ${{ github.repository }}
+          pull_number: ${{ env.PR_NUMBER }}
 
       - name: Comment merge successful
         if: ${{ !failure() }}
