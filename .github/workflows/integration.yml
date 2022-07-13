@@ -14,11 +14,8 @@ jobs:
       - name: Print success message
         run: echo Running
 
-      - name: Trigger pr-autobuild action
-        uses: nikhilaii93/pr-autobuild@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_NAME: lucasmbraz
-          DEFAULT_APPROVAL_COUNT_ENV: 0
-          DEFAULT_MERGE: squash
-          DELETE_BRANCH_ENV: true
+      - name: Merge
+        uses: nbrugger-tgm/merge-pr-action@v0.2.2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          method: squash
