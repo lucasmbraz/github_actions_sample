@@ -24,18 +24,18 @@ jobs:
           message: 'Merge in progress :shipit:'
           recreate: true
 
-#      - name: Merge
-#        uses: nbrugger-tgm/merge-pr-action@v0.2.2
-#        with:
-#          token: ${{ secrets.GITHUB_TOKEN }}
-#          method: squash
-#          pull_request: ${{ env.PR_NUMBER }}
-
       - name: Merge
-        uses: Matticusau/pr-helper@v1.2.4
+        uses: nbrugger-tgm/merge-pr-action@v0.2.2
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          enable-prmerge-automation: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          method: squash
+          pull_request: ${{ env.PR_NUMBER }}
+
+#      - name: Merge
+#        uses: Matticusau/pr-helper@v1.2.4
+#        with:
+#          repo-token: ${{ secrets.GITHUB_TOKEN }}
+#          enable-prmerge-automation: true
 
       - name: Comment merge successful
         if: ${{ !failure() }}
