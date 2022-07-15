@@ -8,27 +8,18 @@ on:
 jobs:
   integration_tests:
     name: Merge PR
-    if: ${{ contains(github.event.comment.body, '🚢') }}
+    if: ${{ contains(github.event.comment.body, '🚢') || contains(github.event.comment.body, ':shipit:') }}
     runs-on: ubuntu-latest
     steps:
-      - name: Set env
+      - name: Define PR_NUMBER env var # This env var is used in steps below
         run: echo "PR_NUMBER=$(basename ${{ github.event.comment.issue_url }})" >> $GITHUB_ENV
-
-#      - name: Comment merge is starting
-#        uses: hasura/comment-progress@v2.1.0
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#          repository: ${{ github.repository }}
-#          number: ${{ env.PR_NUMBER }}
-#          id: merge-progress
-#          message: 'Merge in progress :shipit:'
 
       - name: Comment merge is starting
         uses: jungwinter/comment@v1
         id: comment
         with:
           type: create
-          body: 'Merge in progress :shipit:'
+          body: ':construction: PR #${{ env.PR_NUMBER }}: merge in progress ...'
           issue_number: ${{ env.PR_NUMBER }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -40,60 +31,20 @@ jobs:
           method: squash
           pull_request: ${{ env.PR_NUMBER }}
 
-
-      - name: Print merge result
-        run: echo ${{ steps.merge-step.outputs.commit }}
-
-#      - name: Merge
-#        uses: Matticusau/pr-helper@v1.2.4
-#        with:
-#          repo-token: ${{ secrets.GITHUB_TOKEN }}
-#          enable-prmerge-automation: true
-
-#      - name: Determine Merge Result
-#        uses: haya14busa/action-cond@v1
-#        id: merge-result
-#        with:
-#          cond: ${{ steps.merge-step.outputs.commit != "" }}
-#          if_true: 'Merge worked! :rocket:'
-#          if_false: 'Merge failed :boom:'
-
-#      - name: Comment merge success
-#        if: ${{ steps.merge-step.outputs.commit != '' }}
-#        uses: hasura/comment-progress@v2.1.0
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#          repository: ${{ github.repository }}
-#          number: ${{ env.PR_NUMBER }}
-#          id: merge-progress
-#          message: 'Merge worked! :rocket:'
-#          recreate: true
-
-      - name: Comment merge success
+      - name: Comment if merge successful
         if: ${{ steps.merge-step.outputs.commit != '' }}
         uses: jungwinter/comment@v1
         with:
           type: edit
-          body: 'Merge worked! :rocket:'
+          body: ':rocket: PR #${{ env.PR_NUMBER }}: merge successful!'
           comment_id: ${{ steps.comment.outputs.id }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Comment merge failure
+      - name: Comment if merge failure
         if: ${{ steps.merge-step.outputs.commit == '' }}
         uses: jungwinter/comment@v1
         with:
           type: edit
-          body: 'Merge failed! :bomb:'
+          body: ':bomb: PR #${{ env.PR_NUMBER }}: merge failed'
           comment_id: ${{ steps.comment.outputs.id }}
           token: ${{ secrets.GITHUB_TOKEN }}
-
-#      - name: Comment merge failure
-#        if: ${{ steps.merge-step.outputs.commit == '' }}
-#        uses: hasura/comment-progress@v2.1.0
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#          repository: ${{ github.repository }}
-#          number: ${{ env.PR_NUMBER }}
-#          id: merge-progress
-#          message: 'Merge failed! :boom:'
-#          recreate: true
