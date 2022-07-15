@@ -25,11 +25,16 @@ jobs:
           recreate: true
 
       - name: Merge
+        id: merge-step
         uses: nbrugger-tgm/merge-pr-action@v0.2.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           method: squash
           pull_request: ${{ env.PR_NUMBER }}
+
+
+      - name: Print merge result
+        run: echo ${{ steps.merge-step.outputs.commit }}
 
 #      - name: Merge
 #        uses: Matticusau/pr-helper@v1.2.4
