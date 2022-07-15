@@ -42,25 +42,20 @@ jobs:
 #          repo-token: ${{ secrets.GITHUB_TOKEN }}
 #          enable-prmerge-automation: true
 
-      - name: Comment merge successful
-        if: ${{ steps.merge-step.outputs.commit }}
+      - name: Determine Merge Result
+        uses: haya14busa/action-cond@v1
+        id: merge-result
+        with:
+          cond: ${{ steps.merge-step.outputs.commit }}
+          if_true: 'Merge worked! :rocket:'
+          if_false: 'Merge failed :boom:'
+
+      - name: Comment merge result
         uses: hasura/comment-progress@v2.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           number: ${{ env.PR_NUMBER }}
           id: merge-progress
-          message: 'Merge worked! :rocket:'
+          message: ${{ steps.merge-result.outputs.value }}
           recreate: true
-
-      - name: Comment merge failure
-        if: ${{ steps.merge-step.outputs.commit }}
-        uses: hasura/comment-progress@v2.1.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          number: ${{ env.PR_NUMBER }}
-          id: merge-progress
-          message: 'Merge failed :boom:'
-          recreate: true
-
