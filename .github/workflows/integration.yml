@@ -46,7 +46,7 @@ jobs:
         uses: haya14busa/action-cond@v1
         id: merge-result
         with:
-          cond: ${{ steps.merge-step.outputs.commit }} != ""
+          cond: ${{ steps.merge-step.outputs.commit != "" }}
           if_true: 'Merge worked! :rocket:'
           if_false: 'Merge failed :boom:'
 
