@@ -22,7 +22,7 @@ jobs:
           number: ${{ env.PR_NUMBER }}
           id: merge-progress
           message: 'Merge in progress :shipit:'
-          recreate: true
+          append: true
 
       - name: Merge
         id: merge-step
@@ -59,7 +59,7 @@ jobs:
           number: ${{ env.PR_NUMBER }}
           id: merge-progress
           message: 'Merge worked! :rocket:'
-          recreate: true
+          append: true
 
       - name: Comment merge failure
         if: ${{ steps.merge-step.outputs.commit == '' }}
@@ -70,4 +70,4 @@ jobs:
           number: ${{ env.PR_NUMBER }}
           id: merge-progress
           message: 'Merge failed! :boom:'
-          recreate: true
+          append: true
