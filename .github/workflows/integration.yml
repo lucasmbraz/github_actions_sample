@@ -51,7 +51,7 @@ jobs:
 #          if_false: 'Merge failed :boom:'
 
       - name: Comment merge success
-        if: ${{ steps.merge-step.outputs.commit != "" }}
+        if: ${{ steps.merge-step.outputs.commit != '' }}
         uses: hasura/comment-progress@v2.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -62,7 +62,7 @@ jobs:
           recreate: true
 
       - name: Comment merge failure
-        if: ${{ steps.merge-step.outputs.commit == "" }}
+        if: ${{ steps.merge-step.outputs.commit == '' }}
         uses: hasura/comment-progress@v2.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
