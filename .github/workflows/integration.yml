@@ -19,7 +19,7 @@ jobs:
         id: comment
         with:
           type: create
-          body: ':construction: PR #${{ env.PR_NUMBER }}: merge in progress ...'
+          body: ':construction: Merge in progress (#${{ env.PR_NUMBER }})'
           issue_number: ${{ env.PR_NUMBER }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -36,7 +36,7 @@ jobs:
         uses: jungwinter/comment@v1
         with:
           type: edit
-          body: ':rocket: PR #${{ env.PR_NUMBER }}: merge successful!'
+          body: ':rocket: Successful merge (#${{ env.PR_NUMBER }})'
           comment_id: ${{ steps.comment.outputs.id }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -45,6 +45,6 @@ jobs:
         uses: jungwinter/comment@v1
         with:
           type: edit
-          body: ':bomb: PR #${{ env.PR_NUMBER }}: merge failed'
+          body: ':bomb: Failed merging (#${{ env.PR_NUMBER }})'
           comment_id: ${{ steps.comment.outputs.id }}
           token: ${{ secrets.GITHUB_TOKEN }}
