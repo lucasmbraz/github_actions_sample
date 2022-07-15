@@ -14,14 +14,14 @@ jobs:
       - name: Set env
         run: echo "PR_NUMBER=$(basename ${{ github.event.comment.issue_url }})" >> $GITHUB_ENV
 
-      - name: Comment merge is starting
-        uses: hasura/comment-progress@v2.1.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          number: ${{ env.PR_NUMBER }}
-          id: merge-progress
-          message: 'Merge in progress :shipit:'
+#      - name: Comment merge is starting
+#        uses: hasura/comment-progress@v2.1.0
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          repository: ${{ github.repository }}
+#          number: ${{ env.PR_NUMBER }}
+#          id: merge-progress
+#          message: 'Merge in progress :shipit:'
 
       - name: Comment merge is starting
         uses: jungwinter/comment@v1
