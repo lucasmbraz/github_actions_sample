@@ -27,8 +27,8 @@ jobs:
       - name: Add tag
         uses: rickstaa/action-create-tag@v1
         with:
-          tag: ${{ steps.tag.outputs.tag }}
-          message: ${{ steps.tag.outputs.tag }}
+          tag: ${{ steps.version.outputs.tag }}
+          message: ${{ steps.version.outputs.tag }}
 
 
   call-deploy-workflow:
