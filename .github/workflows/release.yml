@@ -18,7 +18,7 @@ jobs:
         run: echo "APP_VERSION=2.15.0" >> $GITHUB_ENV
 
       - name: Print
-        run: echo "Version is ${{ APP_VERSION }}"
+        run: echo "Version is ${APP_VERSION}"
 
       - name: Set app version
         id: branch
