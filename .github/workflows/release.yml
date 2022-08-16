@@ -24,6 +24,12 @@ jobs:
         id: branch
         run: echo "::set-output name=branch::release-2.15.0"
 
+      - name: Add tag
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: "v${{APP_VERSION}}"
+          message: ${{ APP_VERSION }}
+
 
   call-deploy-workflow:
     uses: ./.github/workflows/deploy.yml
