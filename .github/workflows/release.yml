@@ -12,10 +12,13 @@ jobs:
       - name: Fake release
         run: echo "Running fake release ..."
 
+      - name: Set app version
+        run: echo "APP_VERSION=2.15.0" >> $GITHUB_ENV
+
 
   call-deploy-workflow:
     uses: ./.github/workflows/deploy.yml
     with:
-      version: 2.11.0
+      version: ${{ APP_VERSION }}
     needs:
       - run-release
