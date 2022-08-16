@@ -18,8 +18,8 @@ jobs:
       - name: Define release branch and tag
         id: version
         run: |
-          echo "::set-output name=branch::release-2.16.0"
-          echo "::set-output name=tag::v2.16.0"
+          echo "::set-output name=branch::release-2.17.0"
+          echo "::set-output name=tag::v2.17.0"
 
       - name: Create release branch
         run: git checkout -b ${{ steps.version.outputs.branch }} && git push origin ${{ steps.version.outputs.branch }}
