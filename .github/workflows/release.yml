@@ -12,5 +12,8 @@ jobs:
       - name: Fake release
         run: echo "Running fake release ..."
 
-      - name: Call other files
-        uses: ./.github/workflows/deploy.yml@main
+
+  call-deploy-workflow:
+    uses: ./.github/workflows/deploy.yml
+    needs:
+      - run-release
