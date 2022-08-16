@@ -4,6 +4,8 @@ on:
 jobs:
   run-release:
     runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.app_version.outputs.branch }}
 
     steps:
       - name: Check out current repository
@@ -15,10 +17,17 @@ jobs:
       - name: Set app version
         run: echo "APP_VERSION=2.15.0" >> $GITHUB_ENV
 
+      - name: Print
+        run: echo "Version is ${{ APP_VERSION }}"
+
+      - name: Set app version
+        id: branch
+        run: echo "::set-output name=branch::release-2.15.0"
+
 
   call-deploy-workflow:
     uses: ./.github/workflows/deploy.yml
     with:
-      version: ${{ env.APP_VERSION }}
+      version: ${{ needs.run-release.outputs.branch }}
     needs:
       - run-release
