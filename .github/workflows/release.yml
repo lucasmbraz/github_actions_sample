@@ -1,0 +1,13 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  run-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fake release
+        run: echo "Running fake release ..."
+
+      - name: Call other files
+        uses: ./.github/workflows/deploy.yml
