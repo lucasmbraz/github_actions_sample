@@ -19,6 +19,6 @@ jobs:
   call-deploy-workflow:
     uses: ./.github/workflows/deploy.yml
     with:
-      version: ${{ APP_VERSION }}
+      version: ${{ env.APP_VERSION }}
     needs:
       - run-release
