@@ -22,7 +22,7 @@ jobs:
           echo "::set-output name=tag::v2.16.0"
 
       - name: Create release branch
-        run: git checkout -b ${steps.version.outputs.branch} && git push origin ${steps.version.outputs.branch}
+        run: git checkout -b ${{ steps.version.outputs.branch }} && git push origin ${{ steps.version.outputs.branch }}
 
       - name: Add tag
         uses: rickstaa/action-create-tag@v1
