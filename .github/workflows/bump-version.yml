@@ -1,0 +1,19 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  run-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out current repository
+        uses: actions/checkout@v3
+
+      - name: Fake bump
+        run: echo "Bumping app version" >> version.txt
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: "MISC: Bump app version"
+          commit-message: Bump app version
